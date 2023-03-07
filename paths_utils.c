@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 12:33:18 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/07 14:56:12 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:40:41 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int ckeck_cmd (char **correct, const char *cmd, char **envp)
     int     i;
     
     file_path = NULL;
-    ret = -1;
+    ret = -1; 
     i = 0;
     if (!correct || !cmd || !envp)
         return (-1);
@@ -65,6 +65,7 @@ int ckeck_cmd (char **correct, const char *cmd, char **envp)
     if (!path_list)
         return (-1);
      // Verificar si el archivo existe y es ejecutable
+  
     while (path_list[i] && ret == -1)
     {
         file_path = ft_strjoin(path_list[i], "/");
