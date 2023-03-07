@@ -6,7 +6,7 @@
 #    By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 16:26:50 by vcodrean          #+#    #+#              #
-#    Updated: 2023/03/06 16:35:56 by vcodrean         ###   ########.fr        #
+#    Updated: 2023/03/07 12:07:48 by vcodrean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ MID_GRAY =		\033[38;5;245m
 DARK_GREEN =	\033[38;2;75;179;82m
 DARK_YELLOW =	\033[38;5;143m
 
-SRCS =
+SRCS = pipex.c
 
 LIBFT_PATH = libft/
 
@@ -42,33 +42,29 @@ RM = rm -f
 
 %.o: %.c
 	@echo "${BLUE} ◎ $(BROWN)Compiling   ${MAGENTA}→   $(CYAN)$< $(DEF_COLOR)"
-	//@$(CC) $(CFLAGS) -c $< -o $@ -I $(FT_PRINTF_PATH)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(LIBFT_PATH)
 
 OBJS = ${SRCS:.c=.o}
 
 $(EXEC): $(OBJS)
-	@make -C $(FT_PRINTF_PATH) --silent
-	//@make -C $(LIBFT_PATH) --silent
+	@make -C $(LIBFT_PATH) --silent
 	@$(CC) $(CFLAGS) ${SRCS} -o $(EXEC)  -I./libft -L./libft -lft
 	@echo "\n$(GREEN) Created $(EXEC) ✓ $(DEF_COLOR)\n"
 
 sanitize: $(OBJS)
 	$(CC) -o $(EXEC) $(OBJS) -fsanitize=address -g -O
-	//-g3 -fsanitize=address
+
 
 all: $(EXEC)
 
 clean:
 	$(RM) $(OBJS)
 	@make -C $(LIBFT_PATH) clean --silent
-	//@make -C $(FT_PRINTF_PATH) clean --silent
 	@echo "\n${BLUE} ◎ $(RED)All objects cleaned successfully ${BLUE}◎$(DEF_COLOR)\n"
 
 fclean:  clean
 	@$(RM) $(EXEC)
 	@$(RM) $(OBJS)
-//	@make -C $(FT_PRINTF_PATH) fclean --silent
 	@make -C $(LIBFT_PATH) fclean --silent
 	@echo "\n${BLUE} ◎ $(RED)All objects and executable cleaned successfully${BLUE} ◎$(DEF_COLOR)\n"
 	
