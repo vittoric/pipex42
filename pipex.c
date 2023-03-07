@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:31:48 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/07 12:14:51 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/07 13:25:43 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1 && argv)
 		printf("There are args\n");
 	mycmds = ft_split(argv[1], ' ');
+	if (ckeck_cmd(&correct_path, *mycmds, envp) == -1)
+		printf("Error\n");
+	else
+		printf("Command found\n");
 	printf("Comands: %s   %s\n", mycmds[0], mycmds[1]);
-	if(envp)
-		printf("Hola\n");
+	execve(correct_path, mycmds, envp);
 	return (0);
 }
 
