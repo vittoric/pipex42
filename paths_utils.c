@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 12:33:18 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/07 15:40:41 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:00:44 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char    **find_path(char **envp)
 
 int ckeck_cmd (char **correct, const char *cmd, char **envp)
 {
-    char    *path_env;
     char    **path_list;
     char    *file_path;
     int     ret;
@@ -58,10 +57,8 @@ int ckeck_cmd (char **correct, const char *cmd, char **envp)
     if (!correct || !cmd || !envp)
         return (-1);
      // Obtener las rutas de $PATH
-    path_env = *find_path(envp);
-    if (!path_env)
-        return (-1);
-    path_list = ft_split(path_env, ':');
+   
+    path_list = ft_split(*find_path(envp), ':');
     if (!path_list)
         return (-1);
      // Verificar si el archivo existe y es ejecutable
