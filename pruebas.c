@@ -1,6 +1,20 @@
 #include <stdio.h>
 #include <unistd.h>
 
+int     main(int argc, char **argv)
+{    
+   int id =  fork();
+
+   if (id != 0)
+        fork();
+    
+   
+    printf("\nHola caracola: %d\n",  id);
+     return(0);
+}
+
+
+/*
 int main (int argc, char **argv)
 {
     int fd[2];
@@ -29,4 +43,4 @@ int main (int argc, char **argv)
         printf("got from child proces %d\n", y);
     }
     return 0;
-}
+}*/

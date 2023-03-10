@@ -6,11 +6,12 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 12:33:18 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/08 16:00:44 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:36:49 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+ #include <unistd.h>
 
 /*
 Encontrat PATH con memcmp y cortar a partir de PATH y hacer slip de ':' 
@@ -80,3 +81,44 @@ int ckeck_cmd (char **correct, const char *cmd, char **envp)
     *correct = file_path;
     return (ret);    
 }
+
+int add_path(char **full_path, char *path, char *cmd)
+{
+    char *temp;
+    int acs;
+
+    acs = access(cmd, X_OK);
+    if (acs == 0)
+    {
+        *full_path = cmd;
+        return (0);
+    }
+    temp = ft_strjoin (path, "/");
+    *full_path = ft_strjoin(temp, cmd);
+    acs = access (*full_path, X_OK);
+    free (temp);
+    if (acs == 0)
+        return (0);
+    else
+        return (1);
+}
+
+
+char    *ckeck_path(char **path, char *cmd)
+{
+    char *full_path;
+    int i;
+      
+    full_path = NULL;
+    i = 0;
+    while (path[i] !=  NULL)
+    {
+        if (add_path(&full_path, path[i], cmd) == 0)
+			return (full_path);
+        free(full_path);
+        i++;
+    }
+    full_path = 0;
+    return (full_path);
+}
+

@@ -1,3 +1,9 @@
+# include <string.h>
+# include <stdio.h>
+# include <sys/stat.h>
+# include <stdarg.h>
+# include <fcntl.h>
+
 int check_cmd(char **correct, const char *cmd, char **envp) 
 {
     char *path_env;
