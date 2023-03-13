@@ -5,39 +5,72 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 16:31:48 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/07 16:04:28 by vcodrean         ###   ########.fr       */
+/*   Created: 2023/03/13 18:45:04 by vcodrean          #+#    #+#             */
+/*   Updated: 2023/03/13 18:59:10 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/*envr serch for PATH, split :*/
-
-int	main(int argc, char **argv, char **envp)
+void	child_process(char **argv, char **envp, int *fd, char *direction)
 {
-	char	**mycmds;
-	char	*correct_path;
-	int		ret;
+	int		infile;
+	char	**cmd_c;
 
-	correct_path = 0;
-	if (argc > 1 && argv)
-		printf("There are args\n");
-	mycmds = ft_split(argv[1], ' ');
-	//verifica si el en el argv ya se ha pasado un PATH
-	ret = access(mycmds[0], X_OK);
-     if (ret == 0)
-    {
-        correct_path = mycmds[0];
-		execve(correct_path, mycmds, envp);
-        return (0);
-    }
-	if (ckeck_cmd(&correct_path, *mycmds, envp) == -1)
-		printf("Error\n");
-	else
-		printf("Command found\n");
-	printf("Comands: %s   %s\n", mycmds[0], mycmds[1]);
-	execve(correct_path, mycmds, envp);
-	return (0);
+	cmd_c = ft_split(argv[2], ' ');
+	close(fd[0]);
+	infile = open(argv[1], O_RDONLY, 0666);
+	if (infile == -1)
+		perror("Error");
+	dup2(infile, STDIN_FILENO);
+	close(infile);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
+	if (execve (direction, cmd_c, envp) < 0)
+		exit(127);
 }
 
+void	parent_process(char **argv, char **envp, int *fd, char *direction)
+{
+	int		outfile;
+	char	**cmd_p;
+	pid_t	pid;
+
+	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (outfile == -1)
+		perror("Error");
+	cmd_p = ft_split(argv[3], ' ');
+	pid = fork();
+	close(fd[1]);
+	if (pid == 0)
+	{
+		dup2(outfile, STDOUT_FILENO);
+		dup2(fd[0], STDIN_FILENO);
+		close (fd[0]);
+		if (execve (direction, cmd_p, envp) < 0)
+			exit(127);
+	}
+	else if (pid == -1)
+		perror("Error");
+	else
+		close(fd[0]);
+}
+
+int	pipex(char **argv, char **envp, char **direction)
+{
+	int		fd[2];
+	int		status;
+	pid_t	pid;
+
+	pipe(fd);
+	pid = fork();
+	if (pid == -1)
+		perror("Error");
+	else if (pid == 0)
+		child_process(argv, envp, fd, direction[0]);
+	else
+		parent_process(argv, envp, fd, direction[1]);
+	waitpid(pid, &status, WNOHANG);
+	waitpid(pid, &status, WNOHANG);
+	return (0);
+}

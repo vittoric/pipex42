@@ -6,11 +6,12 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:31:48 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/10 19:36:06 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:56:37 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
 /*
 int main (int argc, char **argv, char **envp)
 {
@@ -37,24 +38,19 @@ int main (int argc, char **argv, char **envp)
 		}
 	
 }
-/*
+*/
 
 /*envr serch for PATH, split :*/
+
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	**direction;
-	//int		ret;
 	char	**cmd1;
 	char	**cmd2;
 	char	**path;
 	
-	if (argc != 5)
-	{
-		ft_putstr_fd("Error argv.Use -> ./pipex infile 'cmd' 'cmd' outfile\n", 2);
-		exit (1);
-	}
-	else
+	if (argc == 5)
 	{
 		direction = ft_calloc(sizeof(char *), 2);
 		cmd1 = ft_split(argv[2], ' ');
@@ -62,30 +58,38 @@ int	main(int argc, char **argv, char **envp)
 		path = ft_split(*find_path(envp), ':');
 		direction[0] = ckeck_path(path, cmd1[0]);
 		direction[1] = ckeck_path(path, cmd2[0]);
-		//printf("path %s ----- cmd1 %s\n\n", path[2], *cmd1);		
-		printf("Direction %s \n", direction[0]);
-		printf("Direction %s \n", direction[1]);
 		//pipex(argv, envp, direction);
-		system("leaks pipex");
+		
+		//printf("path %s ----- cmd1 %s\n\n", path[2], *cmd1);		
+		//printf("Direction %s \n", direction[0]);
+		//printf("Direction %s \n", direction[1]);
+		pipex(argv, envp, direction);
+		//system("leaks pipex");
+	}
 		
 		//verifica si el en el argv ya se ha pasado un PATH
 		
-		ret = access(cmd1[0], X_OK);
-		if (ret == 0)
-		{
-			execve(cmd1[0], cmd1, envp);
-			return (0);
-		}
-		
-		if (ckeck_cmd(&direction, *cmd1, envp) == -1)
+	/*
+		if (ckeck_cmd(direction, *cmd1, envp) == -1)
 		{
 			ft_putstr_fd("Error: command not found\n", 2);
 			exit (1);
 		}
 		else
 			printf("Command found\n");
-		execve(direction, cmd1, envp);
+			execve(direction[1], cmd2, envp);
+		execve(*direction, cmd1, envp);
+		printf("segundo comando\n");
+		
+		
+	}*/
+	else
+	{
+		ft_putstr_fd("Error. Bad arguments\n", 2);
+		ft_putstr_fd("Use -> ./pipex <infile> <cmd1> <cmd2> <outfile>\n", 1);
+		//exit (1);
 	}
 	return (0);
+
 }
 
