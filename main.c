@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:31:48 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/13 18:56:37 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:53:24 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,32 @@ int	main(int argc, char **argv, char **envp)
 		//printf("Direction %s \n", direction[0]);
 		//printf("Direction %s \n", direction[1]);
 		pipex(argv, envp, direction);
-		//system("leaks pipex");
+		free(direction[0]);
+		free(direction[1]);
+		int i = 0;
+		while (cmd1[i] != 0)
+	{
+			free(cmd1[i]);
+			i++;
+	}
+		free(cmd1);
+		i = 0;
+		while (cmd2[i] != 0)
+	{
+			free(cmd2[i]);
+			i++;
+	}
+		free(cmd2);
+		i = 0;
+		while (path[i] != 0)
+	{
+			free(path[i]);
+			i++;
+	}
+	
+		free(path);
+		
+		system("leaks pipex");
 	}
 		
 		//verifica si el en el argv ya se ha pasado un PATH
