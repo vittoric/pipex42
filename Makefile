@@ -6,7 +6,7 @@
 #    By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 16:26:50 by vcodrean          #+#    #+#              #
-#    Updated: 2023/03/13 18:44:28 by vcodrean         ###   ########.fr        #
+#    Updated: 2023/03/14 13:04:36 by vcodrean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCS = main.c paths_utils.c pipex.c
 LIBFT_PATH = libft/
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address  -O
 RM = rm -f
 
 %.o: %.c
@@ -51,8 +51,7 @@ $(EXEC): $(OBJS)
 	@$(CC) $(CFLAGS) ${SRCS} -o $(EXEC)  -I./libft -L./libft -lft
 	@echo "\n$(GREEN) Created $(EXEC) ✓ $(DEF_COLOR)\n"
 
-sanitize: $(OBJS)
-	$(CC) -o $(EXEC) $(OBJS) -fsanitize=address -g -O
+#sanitize: $(OBJS)#$(CC) -o $(EXEC) $(OBJS) 
 
 
 all: $(EXEC)

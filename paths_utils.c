@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 12:33:18 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/10 16:36:49 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:06:04 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 Encontrat PATH con memcmp y cortar a partir de PATH y hacer slip de ':' 
 */
-
+/*
 char    **cut_path(char *envp)
 {
     char    **path;
@@ -28,9 +28,10 @@ char    **cut_path(char *envp)
 char    **find_path(char **envp)
 {
     char    *path;
+    char    **result;
     int     ctr;
 
-    path = 0;
+    path = NULL;
     ctr = 0;
     while (envp[ctr])
     {
@@ -42,7 +43,24 @@ char    **find_path(char **envp)
         }
         ctr++;
     }
-    return (cut_path(path));
+    result = cut_path(path);
+    if (path != NULL)
+        free(path);
+    return (result);
+}*/
+
+char    *find_path(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH", 3) == 0)
+			return (&envp[i][5]);
+		i++;
+	}
+	return (0);
 }
 
 int ckeck_cmd (char **correct, const char *cmd, char **envp)
@@ -59,7 +77,7 @@ int ckeck_cmd (char **correct, const char *cmd, char **envp)
         return (-1);
      // Obtener las rutas de $PATH
    
-    path_list = ft_split(*find_path(envp), ':');
+    path_list = ft_split(find_path(envp), ':');
     if (!path_list)
         return (-1);
      // Verificar si el archivo existe y es ejecutable
