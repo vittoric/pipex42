@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:45:04 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/14 16:12:57 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:47:12 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,7 @@ void	parent_process(char **argv, char **envp, int *fd, char *direction)
 		perror("Error");
 	else
 		close(fd[0]);
-	int i = 0;
-			while (cmd_p[i] != 0)
-	{
-			free(cmd_p[i]);
-			i++;
-	}
-	free(cmd_p);
+	free_cmd(cmd_p);
 }
 
 int	pipex(char **argv, char **envp, char **direction)
@@ -68,9 +62,12 @@ int	pipex(char **argv, char **envp, char **direction)
 	int		fd[2];
 	int		status;
 	pid_t	pid;
-	int pipex = pipe(fd);
 
-	(void)pipex;
+	if (pipe(fd) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
 	pid = fork();
 	if (pid == -1)
 		perror("Error");
@@ -80,5 +77,5 @@ int	pipex(char **argv, char **envp, char **direction)
 		parent_process(argv, envp, fd, direction[1]);
 	waitpid(pid, &status, WNOHANG);
 	waitpid(pid, &status, WNOHANG);
-	return (0);
+	return (status);
 }
