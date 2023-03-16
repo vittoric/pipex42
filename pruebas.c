@@ -33,6 +33,7 @@ int main (int argc, char **argv)
         write(fd[1], &x, sizeof(int));
         close(fd[1]);
 
+
     }
     else
     {
