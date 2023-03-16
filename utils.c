@@ -11,6 +11,7 @@ int check_cmd(char **correct, const char *cmd, char **envp)
     char *file_path;
     int ret;
     int i;
+    
     // Verificación de argumentos
     if (!correct || !cmd || !envp) 
         return -1;
