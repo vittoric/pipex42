@@ -6,7 +6,7 @@
 #    By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 16:26:50 by vcodrean          #+#    #+#              #
-#    Updated: 2023/03/14 16:32:48 by vcodrean         ###   ########.fr        #
+#    Updated: 2023/03/15 16:00:58 by vcodrean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ MID_GRAY =		\033[38;5;245m
 DARK_GREEN =	\033[38;2;75;179;82m
 DARK_YELLOW =	\033[38;5;143m
 
-SRCS = main.c paths_utils.c pipex.c free.c
+SRCS = main.c paths_utils.c pipex.c free.c errors.c
 
 LIBFT_PATH = libft/
 
@@ -57,7 +57,7 @@ $(EXEC): $(OBJS)
 all: $(EXEC)
 
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 	@make -C $(LIBFT_PATH) clean --silent
 	@echo "\n${BLUE} ◎ $(RED)All objects cleaned successfully ${BLUE}◎$(DEF_COLOR)\n"
 

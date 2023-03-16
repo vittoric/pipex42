@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 12:33:18 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/14 20:16:30 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:56:16 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,6 @@ char	*find_path(char **envp)
 		i++;
 	}
 	return (0);
-}
-
-int	ckeck_cmd(char **correct, const char *cmd, char **envp)
-{
-	char	**path_list;
-	char	*file_path;
-	int		ret;
-	int		i;
-
-	file_path = NULL;
-	ret = -1;
-	i = 0;
-	if (!correct || !cmd || !envp)
-		return (-1);
-	path_list = ft_split(find_path(envp), ':');
-	if (!path_list)
-		return (-1);
-	while (path_list[i] && ret == -1)
-	{
-		file_path = ft_strjoin(path_list[i], "/");
-		file_path = ft_strjoin(file_path, cmd);
-		ret = access(file_path, X_OK);
-		i++;
-	}
-	if (ret == -1)
-	{
-		free(file_path);
-		file_path = NULL;
-	}
-	free(path_list);
-	*correct = file_path;
-	return (ret);
 }
 
 int	add_path(char **full_path, char *path, char *cmd)
@@ -93,6 +61,9 @@ char	*ckeck_path(char **path, char *cmd)
 		free(full_path);
 		i++;
 	}
+	cmd_not_fd(cmd);
+	exit(127);
 	full_path = 0;
 	return (full_path);
+	
 }

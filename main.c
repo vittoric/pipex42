@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:31:48 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/14 20:20:24 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:20:11 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	char	**cmd1;
 	char	**cmd2;
 	char	**path;
+
 	if (argc == 5)
 	{
 		direction = ft_calloc(sizeof(char *), 2);
@@ -34,7 +35,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 	{
-		//ft_putstr_fd("Error. Bad arguments\n", 2);
 		ft_putstr_fd("Use -> ./pipex <infile> <cmd1> <cmd2> <outfile>\n", 1);
 		exit (1);
 	}

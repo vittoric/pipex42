@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:45:04 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/14 18:47:12 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:58:06 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,19 @@ void	child_process(char **argv, char **envp, int *fd, char *direction)
 	close(fd[0]);
 	infile = open(argv[1], O_RDONLY, 0777);
 	if (infile == -1)
-		perror("Error");
+		ft_fd_error(argv[1]);
 	dup2(infile, STDIN_FILENO);
 	close(infile);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	if (execve (direction, cmd_c, envp) < 0)
-		exit(127);
+	{
+		if (errno == 1)
+			exit(126);
+		else if (errno == 2)
+			exit(127);
+		exit(1);
+	}
 }
 
 void	parent_process(char **argv, char **envp, int *fd, char *direction)
