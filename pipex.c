@@ -6,7 +6,7 @@
 /*   By: vcodrean <vcodrean@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:45:04 by vcodrean          #+#    #+#             */
-/*   Updated: 2023/03/16 16:58:06 by vcodrean         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:28:06 by vcodrean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,7 @@ void	child_process(char **argv, char **envp, int *fd, char *direction)
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	if (execve (direction, cmd_c, envp) < 0)
-	{
-		if (errno == 1)
-			exit(126);
-		else if (errno == 2)
-			exit(127);
-		exit(1);
-	}
+		exit(errno);
 }
 
 void	parent_process(char **argv, char **envp, int *fd, char *direction)
@@ -54,7 +48,7 @@ void	parent_process(char **argv, char **envp, int *fd, char *direction)
 		dup2(fd[0], STDIN_FILENO);
 		close (fd[0]);
 		if (execve (direction, cmd_p, envp) < 0)
-			exit(127);
+			exit(errno);
 	}
 	else if (pid == -1)
 		perror("Error");
