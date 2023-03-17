@@ -18,4 +18,31 @@ En términos de implementación, el proyecto se divide en varias partes:<br>
 * Esperar a que los procesos hijos terminen su ejecución.
 * Manejar cualquier error que pueda ocurrir.<br>
 
-En general, el proyecto requiere una buena comprensión de los conceptos de procesos, pipes, redirección de entrada/salida y llamadas al sistema en Unix/Linux. También es importante saber cómo trabajar con cadenas de caracteres y funciones de manejo de memoria en C.
+En general, el proyecto requiere una buena comprensión de los conceptos de procesos, pipes, redirección de entrada/salida y llamadas al sistema en Unix/Linux. También es importante saber cómo trabajar con cadenas de caracteres y funciones de manejo de memoria en C.<br><br>
+
+Conceptos básicos de procesos, pipes, redirección de entrada/salida y llamadas al sistema en Unix/Linux:<br>
+
+Procesos:<br>
+
+* En Unix/Linux, un proceso es una instancia de un programa en ejecución. Cada proceso tiene su propio espacio de memoria y se comunica con otros procesos a través de IPC (Inter Process Communication).
+* Cada proceso se identifica por un número único llamado PID (Process ID).
+* Los procesos pueden ser creados y controlados mediante llamadas al sistema como fork(), exec(), wait() y exit().<br>
+
+Pipes:<br>
+
+* Un pipe es un mecanismo de IPC que permite la comunicación unidireccional entre dos procesos.
+* Los pipes se crean mediante la llamada al sistema pipe() y devuelven dos descriptores de archivo, uno para leer y otro para escribir.
+* Los procesos pueden comunicarse a través de un pipe enviando datos a través del extremo de escritura y leyendo datos del extremo de lectura.<br>
+
+Redirección de entrada/salida:<br>
+
+* La redirección de entrada/salida permite a los procesos redirigir la entrada o salida estándar hacia o desde un archivo o dispositivo diferente.
+* La redirección de entrada se realiza mediante la operación "<" y la redirección de salida mediante ">" o ">>".
+* Los procesos pueden utilizar la redirección de entrada/salida para leer datos de un archivo en lugar del teclado o escribir datos en un archivo en lugar de la pantalla.<br>
+
+Llamadas al sistema en Unix/Linux:<br>
+
+* Unix/Linux es un sistema operativo basado en el kernel de Unix, que proporciona una interfaz de programación de aplicaciones (API) para los programas.
+* Los programas interactúan con el kernel a través de llamadas al sistema, que son funciones del kernel que los programas pueden llamar para realizar tareas como la creación de procesos, la lectura y escritura de archivos, la comunicación entre procesos y la gestión de recursos del sistema.
+* Las llamadas al sistema en Unix/Linux se realizan mediante una sintaxis específica de la función y un número de sistema que identifica la función.
+* Espero que esta explicación te haya sido útil. ¡Buena suerte con tu proyecto!
