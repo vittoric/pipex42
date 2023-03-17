@@ -33,7 +33,8 @@ Pipes:<br>
 * Un pipe es un mecanismo de IPC que permite la comunicación unidireccional entre dos procesos.
 * Los pipes se crean mediante la llamada al sistema pipe() y devuelven dos descriptores de archivo, uno para leer y otro para escribir.
 * Los procesos pueden comunicarse a través de un pipe enviando datos a través del extremo de escritura y leyendo datos del extremo de lectura.<br>
- El pipe() es una función de sistema en C que se utiliza para crear una tubería o "pipe" que permite la comunicación unidireccional entre dos procesos. Una tubería consta de dos extremos, uno para escribir y otro para leer, y se utiliza para transferir datos desde un proceso al otro.<br>
+
+El pipe() es una función de sistema en C que se utiliza para crear una tubería o "pipe" que permite la comunicación unidireccional entre dos procesos. Una tubería consta de dos extremos, uno para escribir y otro para leer, y se utiliza para transferir datos desde un proceso al otro.<br>
 
 El pipe() toma un argumento de tipo puntero a un array de dos enteros, los cuales representan los dos extremos de la tubería, y devuelve 0 en caso de éxito y -1 en caso de error.<br>
 
