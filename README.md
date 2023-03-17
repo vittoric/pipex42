@@ -8,12 +8,12 @@ Además, el programa debe utilizar la función execve para ejecutar los comandos
 
 En términos de implementación, el proyecto se divide en varias partes:
 
-*Leer y validar los argumentos de entrada.
-*Parsear los comandos y extraer sus argumentos.
-*Buscar las rutas de los comandos en las variables de entorno PATH.
-*Crear un pipeline de múltiples procesos hijos utilizando la llamada al sistema pipe().
-*Redireccionar la entrada y la salida de los procesos hijos.
-*Ejecutar los comandos en los procesos hijos utilizando la llamada al sistema execve().
-*Esperar a que los procesos hijos terminen su ejecución.
-*Manejar cualquier error que pueda ocurrir.
+* Leer y validar los argumentos de entrada.
+* Parsear los comandos y extraer sus argumentos.
+* Buscar las rutas de los comandos en las variables de entorno PATH.
+* Crear un pipeline de múltiples procesos hijos utilizando la llamada al sistema pipe().
+* Redireccionar la entrada y la salida de los procesos hijos.
+* Ejecutar los comandos en los procesos hijos utilizando la llamada al sistema execve().
+* Esperar a que los procesos hijos terminen su ejecución.
+* Manejar cualquier error que pueda ocurrir.
 En general, el proyecto requiere una buena comprensión de los conceptos de procesos, pipes, redirección de entrada/salida y llamadas al sistema en Unix/Linux. También es importante saber cómo trabajar con cadenas de caracteres y funciones de manejo de memoria en C.
